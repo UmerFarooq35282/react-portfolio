@@ -56,10 +56,10 @@ function ContactSection() {
 
     emailjs
       .sendForm(
-        import.meta.env.EMAIL_SERVICEID,
-        import.meta.EMAIL_SERVICE_TEMPLATEID,
+        import.meta.env.VITE_EMAIL_SERVICEID,
+        import.meta.env.VITE_EMAIL_SERVICE_TEMPLATEID,
         form.current,
-        import.meta.EMAIL_SERVICE_PUBLIC_KEY,
+        import.meta.env.VITE_EMAIL_SERVICE_PUBLIC_KEY
       )
       .then(() => {
         Swal.fire({
@@ -70,7 +70,7 @@ function ContactSection() {
         });
         form.current.reset();
       })
-      .catch(() => {
+      .catch((error) => {
         Swal.fire({
           icon: "error",
           title: "Sending Failed",
@@ -141,7 +141,11 @@ function ContactSection() {
                   Please enter your message.
                 </p>
               </div>
-
+              <input
+                type="hidden"
+                name="time"
+                value={new Date().toLocaleString()}
+              />
               <button
                 type="submit"
                 class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl transition"
